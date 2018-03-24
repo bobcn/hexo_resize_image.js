@@ -22,9 +22,16 @@
     ![指定像素](/image/test.jpg?200x200)
     ```
 
+    可以只指定一个参数，图片会等比例缩放。
+
+    ```markdown
+    ![仅指定width](/image/test.jpg?200x)
+    ![仅指定height](/image/test.jpg?x200)
+    ```
+
 2. 可指定缩放比例
 
-    方法是在 URL 后面添加 `?<scale>`
+    方法是在 URL 后面添加 `?<scale>`，等比例缩放图片大小至 <scale>%。
 
     ```markdown
     ![指定比例](/image/test.jpg?40)

@@ -1,5 +1,11 @@
-function reset_image_size()
-{ 　　 
+function set_image_size(image, width, height) 
+{
+    image.setAttribute("width", width + "px");
+    image.setAttribute("height", height + "px");
+}
+
+function hexo_resize_image()
+{
     var imgs = document.getElementsByTagName('img');
     for (var i = imgs.length - 1; i >= 0; i--) 
     {
@@ -15,8 +21,21 @@ function reset_image_size()
             {
                 var width = values[0];
                 var height = values[1];
-                img.setAttribute("width", width + "px");
-                img.setAttribute("height", height + "px");
+
+                if (!(width.length && height.length))
+                {
+                    var n_width = img.naturalWidth;
+                    var n_height = img.naturalHeight;
+                    if (width.length > 0)
+                    {
+                        height = n_height*width/n_width;
+                    }
+                    if (height.length > 0)
+                    {
+                        width = n_width*height/n_height;
+                    }
+                }
+                set_image_size(img, width, height);
             }
             continue;
         }
@@ -24,10 +43,11 @@ function reset_image_size()
         fields = src.match(/(?<=\?)\d*/g);
         if (fields && fields.length == 1)
         {
-            var scale = fields[0];
-            img.setAttribute("width", scale + "%");
-            img.setAttribute("height", scale + "%");
+            var scale = parseFloat(fields[0].toString());
+            var width = scale/100.0*img.naturalWidth;
+            var height = scale/100.0*img.naturalHeight;
+            set_image_size(img, width, height);
         }
     }
 }
-window.onload = reset_image_size;
+window.onload = hexo_resize_image;
