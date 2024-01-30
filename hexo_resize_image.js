@@ -50,4 +50,4 @@ function hexo_resize_image()
         }
     }
 }
-window.onload = hexo_resize_image;
+document.addEventListener("DOMContentLoaded", hexo_resize_image);
